@@ -1,0 +1,27 @@
+url: https://school.programmers.co.kr/learn/courses/30/lessons/42895
+
+function solution(N, number) {
+    if(N === number) return 1;
+    
+    let matrix = new Array(8).fill().map((el, i) => 
+        new Set([Number((String(N).repeat(i+1)))])
+    );
+    
+    for(let i = 0; i < 8; i++) {
+        for(let j = 0; j < i; j++) {
+            for(const el1 of matrix[j]) {
+                for(const el2 of matrix[i-j-1]) {
+                    
+                    matrix[i].add(el1 + el2);
+                    matrix[i].add(el1 - el2);
+                    matrix[i].add(el1 * el2);
+                    matrix[i].add(el1 / el2);
+                }
+            }
+        }
+        if(matrix[i].has(number))
+            return i+1;
+    }
+    
+    return -1;
+}
