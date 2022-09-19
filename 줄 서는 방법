@@ -1,0 +1,44 @@
+url: https://school.programmers.co.kr/learn/courses/30/lessons/12936
+
+function solution(n, k) {
+    var answer = [];
+
+    const factorial = (n) => {
+        if(n <= 1) return 1;
+
+        return n * factorial(n - 1);
+    }
+
+    let matrix = [];
+
+    for(let i = 0; i < n; i++) {
+        matrix.push(i+1);
+    }
+    
+    // k = 7, k = 6;
+    k = k - 1;
+
+    while(matrix.length > 0) {
+        
+        if(k === 0) {
+            answer.push(...matrix);
+            break;
+        }
+        
+        // n = 4, len = 3
+        let len = matrix.length - 1;
+        // fact = 3 * 2 * 1 = 6
+        let fact = factorial(len);
+       
+        // share = (6 / 6) = 1
+        let share = parseInt(k / fact);
+        let remainder = k % fact;
+
+        answer.push(matrix[share]);
+        matrix.splice(share, 1);
+
+        k = remainder;
+    }
+    
+    return answer;
+}
